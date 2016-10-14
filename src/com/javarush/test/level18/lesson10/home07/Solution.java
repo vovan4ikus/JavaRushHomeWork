@@ -19,8 +19,6 @@ c:\3.txt
 */
 
 import java.io.*;
-import java.util.Locale;
-import java.util.Scanner;
 
 
 public class Solution {
@@ -28,24 +26,33 @@ public class Solution {
         BufferedReader name = new BufferedReader(new InputStreamReader(System.in));
         String fileName = name.readLine();
         name.close();
-        Scanner in = new Scanner(new FileInputStream(fileName));
-        in.useLocale(Locale.ENGLISH);
-        int id = 0;
-        String productName = null;
-        float price = 0;
-        int quantity = 0;
-        while (in.hasNext()) {
-            id = in.nextInt();
-            productName = in.next();
-            price = in.nextFloat();
-            quantity = in.nextInt();
-            if (id == Integer.parseInt(args[0])) {
-                in.close();
+//        Scanner in = new Scanner(new FileInputStream(fileName));
+//        in.useLocale(Locale.ENGLISH);
+//        int id = 0;
+//        String productName = null;
+//        float price = 0;
+//        int quantity = 0;
+//        while (in.hasNext()) {
+//            id = in.nextInt();
+//            productName = in.next();
+//            price = in.nextFloat();
+//            quantity = in.nextInt();
+//            if (id == Integer.parseInt(args[0])) {
+//                in.close();
+//                break;
+//            }
+//        }
+//        System.out.print(id + " " + productName + " " + price + " " + quantity);
+        BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
+        String s;
+        while((s = fileReader.readLine()) != null){
+            if (s.startsWith(args[0] + " ")){
+                System.out.println(s);
+
                 break;
             }
         }
-        System.out.print(id + " " + productName + " " + price + " " + quantity);
-
+        fileReader.close();
 
     }
 }
