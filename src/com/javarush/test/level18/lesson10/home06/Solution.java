@@ -41,7 +41,8 @@ public class Solution {
                 System.out.println((char) b + " " + count);
             }
         }
-//        for (Map.Entry<Character, Integer> characterIntegerEntry : map.entrySet()) {
+// Как вариант, но вывод производится в поризвольном порядке
+// for (Map.Entry<Character, Integer> characterIntegerEntry : map.entrySet()) {
 //            System.out.println(characterIntegerEntry.getKey() + " " + characterIntegerEntry.getValue());
 //        }
     }
