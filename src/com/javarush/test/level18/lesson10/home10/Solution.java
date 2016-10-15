@@ -8,54 +8,48 @@ package com.javarush.test.level18.lesson10.home10;
 В папке, где находятся все прочтенные файлы, создать файл без приставки [.partN]. Например, Lion.avi
 В него переписать все байты из файлов-частей используя буфер.
 Файлы переписывать в строгой последовательности, сначала первую часть, потом вторую, ..., в конце - последнюю.
-Закрыть потоки. Не использовать try-with-resources
-*/
-/*
-c:\1\file.txt.part4
-file.doc.part2
-file.doc.part1
-file.doc.part3
+Закрыть все потоки ввода-вывода
+Темповые файлы создавать нельзя, т.к. на сервере заблокирована возможность создания каких любо файлов
 */
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Solution {
     public static void main(String[] args) throws IOException {
-        ArrayList<String> list = new ArrayList<String>();
-        while (true) {
-            String s;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            if (!(s = reader.readLine()).equals("end")) {
-                list.add(s);
-            } else {
-                reader.close();
+        List <String> files= new ArrayList<String>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String file = "";
+        String simlpeFileName = "";
+        String simlpeFileExt = "";
+        while(true){
+            file = reader.readLine();
+            if(!file.equals("end")) {
+                files.add(file);
+            }
+            else{
                 break;
             }
         }
-        Collections.sort(list);
-        System.out.println(list);
-        //        getting new filename
-
-//        String[] fileName = list.get(0).split(".part");
-        String fileName = list.get(0).substring(0, list.get(0).lastIndexOf("."));
-
-//        System.out.println(fileName);
-
-//        File file = new File(fileName[0]);
-//        file.createNewFile();
-        FileOutputStream out = new FileOutputStream(fileName);
-        for (String s : list) {
+        Collections.sort(files);
+        String[] nameFile = files.get(0).split("\\.");
+        simlpeFileName = nameFile[0];
+        simlpeFileExt = nameFile[1];
+        FileOutputStream out = new FileOutputStream(simlpeFileName + "." + simlpeFileExt);
+        for (String s:files) {
             FileInputStream in = new FileInputStream(new File(s));
-            byte[] buffer = new byte[in.available()];
-            while (in.available() > 0) {
-                in.read(buffer);
-                out.write(buffer);
+            if (in.available() > 0) {
+
+                byte[] buffer = new byte[in.available()];
+                int count = in.read(buffer);
+                out.write(buffer, 0, count);
             }
             in.close();
         }
         out.close();
+        reader.close();
 
     }
 }
