@@ -11,7 +11,7 @@ package com.javarush.test.level18.lesson10.home10;
 Закрыть потоки. Не использовать try-with-resources
 */
 /*
-c:\1\file.doc.part4
+c:\1\file.txt.part4
 file.doc.part2
 file.doc.part1
 file.doc.part3
@@ -35,18 +35,24 @@ public class Solution {
             }
         }
         Collections.sort(list);
-//        System.out.println(list);
+        System.out.println(list);
         //        getting new filename
 
-        String[] fileName = list.get(0).split(".part");
-        File file = new File(fileName[0]);
-        file.createNewFile();
-        FileOutputStream out = new FileOutputStream(fileName[0]);
+//        String[] fileName = list.get(0).split(".part");
+        String fileName = list.get(0).substring(0, list.get(0).lastIndexOf("."));
+
+//        System.out.println(fileName);
+
+//        File file = new File(fileName[0]);
+//        file.createNewFile();
+        FileOutputStream out = new FileOutputStream(fileName);
         for (String s : list) {
-            FileInputStream in = new FileInputStream(s);
+            FileInputStream in = new FileInputStream(new File(s));
             byte[] buffer = new byte[in.available()];
-            in.read(buffer);
-            out.write(buffer);
+            while (in.available() > 0) {
+                in.read(buffer);
+                out.write(buffer);
+            }
             in.close();
         }
         out.close();
