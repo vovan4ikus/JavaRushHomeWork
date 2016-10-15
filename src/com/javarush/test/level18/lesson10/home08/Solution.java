@@ -1,5 +1,7 @@
 package com.javarush.test.level18.lesson10.home08;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,14 +16,80 @@ import java.util.Map;
 public class Solution {
     public static Map<String, Integer> resultMap = new HashMap<String, Integer>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<String> list = new ArrayList<String>();
+        String s;
+        while (true) {
+            s = reader.readLine();
+            if (!s.equals("exit")) {
+                list.add(s);
+            } else {
+                break;
+            }
+        }
+        for (String name : list) {
+            Thread th = new ReadThread(name);
+            th.start();
+            try {
+                th.join();
+            }catch (Exception e) {}
+        }
+
+        reader.close();
+//        for (Map.Entry<String, Integer> entry : resultMap.entrySet()) {
+//            System.out.println(entry.getKey() + " " + entry.getValue());
+//        }
+
 
     }
 
     public static class ReadThread extends Thread {
+        private String fileName;
+
         public ReadThread(String fileName) {
-            //implement constructor body
+            this.fileName = fileName;
         }
-        // implement file reading here - реализуйте чтение из файла тут
+
+        @Override
+        public void run() {
+
+            HashMap<Byte, Integer> map = new HashMap<Byte, Integer>();
+            try {
+                FileInputStream in = new FileInputStream(fileName);
+                byte buffer[] = new byte[in.available()];
+                if (in.available() > 0) {
+                    in.read(buffer);
+                }
+
+                for (byte b : buffer) {
+                    if (map.containsKey(b)) {
+                        int count = map.get(b);
+                        count++;
+                        map.put(b, count);
+                    } else {
+                        map.put(b, 1);
+                    }
+                }
+
+                int max = Integer.MIN_VALUE;
+                byte res = Byte.MIN_VALUE;
+                for (Map.Entry<Byte, Integer> entry : map.entrySet()) {
+                    if (entry.getValue() > max) {
+                        max = entry.getValue();
+                        res = entry.getKey();
+                    }
+                }
+                in.close();
+
+                synchronized (resultMap) {
+                    resultMap.put(this.fileName, (int) res);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+    // implement file reading here - реализуйте чтение из файла тут
 }
+
