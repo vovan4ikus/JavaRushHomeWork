@@ -33,7 +33,8 @@ public class Solution {
             th.start();
             try {
                 th.join();
-            }catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
 
         reader.close();
@@ -51,43 +52,79 @@ public class Solution {
             this.fileName = fileName;
         }
 
+        //        @Override
+//        public void run() {
+//
+//            HashMap<Byte, Integer> map = new HashMap<Byte, Integer>();
+//            try {
+//                FileInputStream in = new FileInputStream(fileName);
+//                byte buffer[] = new byte[in.available()];
+//                if (in.available() > 0) {
+//                    in.read(buffer);
+//                }
+//
+//                for (byte b : buffer) {
+//                    if (map.containsKey(b)) {
+//                        int count = map.get(b);
+//                        count++;
+//                        map.put(b, count);
+//                    } else {
+//                        map.put(b, 1);
+//                    }
+//                }
+//
+//                int max = Integer.MIN_VALUE;
+//                byte res = Byte.MIN_VALUE;
+//                for (Map.Entry<Byte, Integer> entry : map.entrySet()) {
+//                    if (entry.getValue() > max) {
+//                        max = entry.getValue();
+//                        res = entry.getKey();
+//                    }
+//                }
+//                in.close();
+//
+//                synchronized (resultMap) {
+//                    resultMap.put(this.fileName, (int) res);
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         @Override
         public void run() {
-
             HashMap<Byte, Integer> map = new HashMap<Byte, Integer>();
             try {
                 FileInputStream in = new FileInputStream(fileName);
-                byte buffer[] = new byte[in.available()];
+                byte buff[] = new byte[in.available()];
                 if (in.available() > 0) {
-                    in.read(buffer);
+                    in.read(buff);
                 }
 
-                for (byte b : buffer) {
-                    if (map.containsKey(b)) {
-                        int count = map.get(b);
-                        count++;
-                        map.put(b, count);
+                for (int i = 0; i < buff.length; i++) {
+                    byte bytes = buff[i];
+                    if (map.containsKey(bytes)) {
+                        int value = map.get(bytes);
+                        value++;
+                        map.put(bytes, value);
                     } else {
-                        map.put(b, 1);
+                        map.put(buff[i], 1);
                     }
                 }
-
-                int max = Integer.MIN_VALUE;
-                byte res = Byte.MIN_VALUE;
+                int count = 0;
+                int bytes = Byte.MIN_VALUE;
                 for (Map.Entry<Byte, Integer> entry : map.entrySet()) {
-                    if (entry.getValue() > max) {
-                        max = entry.getValue();
-                        res = entry.getKey();
+                    if (entry.getValue() > count) {
+                        count = entry.getValue();
+                        bytes = entry.getKey();
                     }
+                }
+                synchronized (resultMap) {
+                    resultMap.put(fileName, bytes);
                 }
                 in.close();
-
-                synchronized (resultMap) {
-                    resultMap.put(this.fileName, (int) res);
-                }
             } catch (IOException e) {
-                e.printStackTrace();
             }
+
         }
     }
     // implement file reading here - реализуйте чтение из файла тут
