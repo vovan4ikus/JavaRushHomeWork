@@ -21,12 +21,7 @@ public class AdapterFileOutputStream implements AmigoStringWriter {
 
     @Override
     public void writeString(String s) throws IOException {
-        byte[] b = new byte[s.length()];
-        char[] ch = s.toCharArray();
-        for (int i = 0; i < s.length(); i++) {
-            b[i] = (byte) ch[i];
-        }
-        out.write(b);
+        out.write(s.getBytes());
     }
 
     @Override
