@@ -16,15 +16,18 @@ import java.util.Map;
 
 public class Solution {
     public static Map<String, String> countries = new HashMap<String, String>();
+
     static {
-        countries.put("UA","Ukraine");
-        countries.put("RU","Russia");
-        countries.put("CA","Canada");
+        countries.put("UA", "Ukraine");
+        countries.put("RU", "Russia");
+        countries.put("CA", "Canada");
     }
+
     public static class IncomeDataAdapter implements Customer, Contact {
 
 
         IncomeData data = null;
+
         public IncomeDataAdapter(IncomeData data) {
             this.data = data;
         }
@@ -36,10 +39,11 @@ public class Solution {
 
         @Override
         public String getPhoneNumber() {
-            return "+" + data.getCountryPhoneCode() + "(0" + data.getPhoneNumber()/10000000 + ")" +
-                    (data.getPhoneNumber() - data.getPhoneNumber()/1000000)/10000 + "-" +
-                    (data.getPhoneNumber()-((data.getPhoneNumber() - data.getPhoneNumber()/1000000)/10000))/100 + "-" +
-                    (data.getPhoneNumber()- ((data.getPhoneNumber()-((data.getPhoneNumber() - data.getPhoneNumber()/1000000)/10000))/100));
+            return(String.format("+%d(%2$s)%3$s-%4$s-%5$s", data.getCountryPhoneCode(),
+                    String.format("%010d", data.getPhoneNumber()).substring(0, 3),
+                    String.format("%010d", data.getPhoneNumber()).substring(3, 6),
+                    String.format("%010d", data.getPhoneNumber()).substring(6, 8),
+                    String.format("%010d", data.getPhoneNumber()).substring(8)));
         }
 
         @Override
