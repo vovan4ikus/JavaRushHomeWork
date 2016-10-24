@@ -30,25 +30,21 @@ public class Solution {
         BufferedReader reader = new BufferedReader(new FileReader(args[0]));
         Map<String, Double> map = new HashMap<String, Double>();
         List<String> list = new ArrayList<String>();
-        while (reader.ready()) {
-            try {
-                String key = reader.readUTF();
-                double value = reader.readFloat();
-                if (map.containsKey(key)) {
-                    double fl = map.get(key);
-                    fl = fl + value;
-                    map.put(key, fl);
-                } else {
-                    map.put(key, value);
-                    list.add(key);
-                }
-
-            } catch (EOFException e) {
+        String str;
+        while ((str = reader.readLine())!=null) {
+            String[] split = str.split(" ");
+            String key = split[0];
+            double value = Double.parseDouble(split[1]);
+            if (map.containsKey(key)) {
+                map.put(key, map.get(key) + value);
+            } else {
+                map.put(key, value);
+                list.add(key);
             }
         }
-
         reader.close();
         Collections.sort(list);
+//        System.out.println(list);
         for (String s : list) {
             System.out.println(s + " " + map.get(s));
         }
