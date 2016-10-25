@@ -7,7 +7,28 @@ package com.javarush.test.level19.lesson10.home05;
 Закрыть потоки. Не использовать try-with-resources
 */
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Solution {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        BufferedReader fileRead = new BufferedReader(new FileReader(args[0]));
+        BufferedWriter fileWrite = new BufferedWriter(new FileWriter(args[1]));
+        List<String> list = new ArrayList<String>();
+        String str;
+        while ((str = fileRead.readLine())!=null) {
+            str = str.trim();
+            String[] s = str.split(" ");
+            for (String s1 : s) {
+                list.add(s1);
+            }
+        }
+        fileRead.close();
+        for (String s : list) {
+            if (s.contains("[0-9]")) fileWrite.write(s + " ");
+        }
+        fileWrite.close();
+
     }
 }
