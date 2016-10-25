@@ -18,15 +18,19 @@ public class Solution {
         List<String> list = new ArrayList<String>();
         String str;
         while ((str = fileRead.readLine())!=null) {
-            str = str.trim();
+//            str = str.trim();
             String[] s = str.split(" ");
             for (String s1 : s) {
                 list.add(s1);
             }
         }
+//        System.out.println(list);
         fileRead.close();
         for (String s : list) {
-            if (s.contains("[0-9]")) fileWrite.write(s + " ");
+            if (!s.matches("^\\D*$")) {
+//                расшифровка от начала - єкранирование - нецифра в любом количестве - до конца
+//                System.out.println(s + " ");
+                fileWrite.write(s + " ");}
         }
         fileWrite.close();
 
