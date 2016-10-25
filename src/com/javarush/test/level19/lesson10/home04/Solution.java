@@ -1,5 +1,9 @@
 package com.javarush.test.level19.lesson10.home04;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +28,23 @@ public class Solution {
         words.add("В");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader fileRead = new BufferedReader(new FileReader(reader.readLine()));
+        List<String> list = new ArrayList<String>();
+        String str;
+        while ((str = fileRead.readLine())!=null) {
+            list.add(str);
+        }
+        reader.close();
+        fileRead.close();
+        for (String s : list) {
+            int count = 0;
+            for (int i = 0; i < words.size(); i++) {
+                if (s.contains(words.get(i))){count++;}
+            }
+            if (count == 2) System.out.println(s);
+        }
 
     }
 }
