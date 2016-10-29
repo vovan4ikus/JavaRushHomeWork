@@ -26,17 +26,17 @@ public class Solution {
             System.out.println(value);
 
             Example result = null;
-            String s = "a";
+            char s = 'a';
             switch (s) {
-                case "a": {
+                case 'a': {
                     result = new Solution().new A();
                     break;
                 }
-                case "b": {
+                case 'b': {
                     result = new Solution().new B();
                     break;
                 }
-                case "c": {
+                case 'c': {
                     result = new Solution().new C();
                     break;
                 }
