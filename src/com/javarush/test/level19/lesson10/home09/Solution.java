@@ -20,11 +20,15 @@ fifth
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Solution {
     public static TestString testString = new TestString();
+    static int total = 1;
 
     public static void main(String[] args) {
+        List<String> list = new ArrayList<String>();
         //запоминаем настоящий PrintStream в специальную переменную
         PrintStream consoleStream = System.out;
 
@@ -45,20 +49,25 @@ public class Solution {
         System.setOut(consoleStream);
 
         //разворачиваем строку
-        int total = 0;
-        String[] str = result.split(" ");
-        if (str[1].equals("+")) {
-            total = Integer.parseInt(str[0]) + Integer.parseInt(str[2]);
-        }
-        if (str[1].equals("*")) {
-            total = Integer.parseInt(str[0]) * Integer.parseInt(str[2]);
-        }
-        if (str[1].equals("-")) {
-            total = Integer.parseInt(str[0]) - Integer.parseInt(str[2]);
+
+        String[] str = result.split("\\n");
+//        System.out.println(result);
+
+        for (String s : str) {
+//            System.out.println(s);
+            list.add(s);
         }
         //выводим ее в консоль
-        System.out.println(str[0] + " " + str[1] + " " + str[2] + " " + str[3] + " " + total);
+        for (int i = 0; i < list.size(); i++) {
+            if((i+1)%2!=0){
+                System.out.println(list.get(i));
+            }
+            else{
+                System.out.println(list.get(i));
+                System.out.println("JavaRush - курсы Java онлайн");
+            }
 
+        }
 
     }
 
