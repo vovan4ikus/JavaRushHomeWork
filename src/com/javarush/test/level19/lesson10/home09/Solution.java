@@ -25,7 +25,6 @@ import java.util.List;
 
 public class Solution {
     public static TestString testString = new TestString();
-    static int total = 1;
 
     public static void main(String[] args) {
         List<String> list = new ArrayList<String>();
