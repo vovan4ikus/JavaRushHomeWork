@@ -15,9 +15,48 @@ import java.io.*;
 6) проверить, что в файле есть данные из п.2 и п.5
 */
 public class Solution implements Serializable, AutoCloseable {
-    private FileOutputStream stream;
+    private transient FileOutputStream stream;
+    private String fileName;
+
+    public static void main(String[] args) throws Exception {
+////        1) создать экземпляр класса Solution
+//        Solution solution = new Solution("c:\\11.txt");
+////        2) записать в него данные  - writeObject
+//        solution.writeObject("string");
+////        3) сериализовать класс Solution  - writeObject(ObjectOutputStream out)
+//        ObjectOutputStream out = new ObjectOutputStream(solution.stream);
+//        solution.writeObject(out);
+//        out.close();
+////        4) десериализовать, получаем новый объект
+//        FileInputStream fin = new FileInputStream("c:\\11.txt");
+//        ObjectInputStream in = new ObjectInputStream(fin);
+//        solution.readObject(in);
+//        in.close();
+//        fin.close();
+////        5) записать в новый объект данные - writeObject
+//
+//        solution.writeObject("new string");
+        Solution solution1 = new Solution("D:\\1.txt");
+        solution1.writeObject("Hi1");
+        solution1.close();
+        //SAVE
+        FileOutputStream fileOutputStream = new FileOutputStream("D:\\2.txt");
+        ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
+        outputStream.writeObject(solution1);
+        outputStream.flush();
+        outputStream.close();
+        //LOAD
+        FileInputStream fileInputStream = new FileInputStream("D:\\2.txt");
+        ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
+        Solution solution2 = (Solution) inputStream.readObject();
+        inputStream.close();
+        solution2.writeObject("Hi2");
+        solution2.writeObject("Hi3");
+        solution2.close();
+    }
 
     public Solution(String fileName) throws FileNotFoundException {
+        this.fileName = fileName;
         this.stream = new FileOutputStream(fileName);
     }
 
@@ -29,12 +68,11 @@ public class Solution implements Serializable, AutoCloseable {
 
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
-        out.close();
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        in.close();
+        stream = new FileOutputStream(this.fileName, true);
     }
 
     @Override
