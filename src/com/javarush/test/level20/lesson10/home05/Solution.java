@@ -1,22 +1,43 @@
 package com.javarush.test.level20.lesson10.home05;
 
-import java.io.PrintStream;
+import java.io.*;
 import java.util.logging.Logger;
 
 /* Сериализуйте Person
 Сериализуйте класс Person стандартным способом. При необходимости поставьте полям модификатор transient.
 */
 public class Solution {
+    public static void main(String[] args) throws Exception {
+        //writing
+        FileOutputStream fileOutput = new FileOutputStream("file1.txt");
+        ObjectOutputStream outputStream = new ObjectOutputStream(fileOutput);
 
-    public static class Person {
+        Person person = new Person("Vasya", "Pupkin", "Ukraine", Sex.FEMALE);
+        outputStream.writeObject(person);
+
+        fileOutput.close();
+        outputStream.close();
+
+        //loading
+        FileInputStream fiStream = new FileInputStream("file1.txt");
+        ObjectInputStream objectStream = new ObjectInputStream(fiStream);
+
+        Person loadedObject = (Person) objectStream.readObject();
+
+        fiStream.close();
+        objectStream.close();
+    }
+
+    public static class Person implements Serializable {
         String firstName;
         String lastName;
-        String fullName;
-        final String greetingString;
+        transient String fullName;
+        final transient String greetingString;
         String country;
         Sex sex;
-        PrintStream outputStream;
-        Logger logger;
+        transient PrintStream outputStream;
+        transient Logger logger;
+        private static final long serialVersionUID = 123456789;
 
         Person(String firstName, String lastName, String country, Sex sex) {
             this.firstName = firstName;
