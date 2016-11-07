@@ -37,7 +37,7 @@ public class Solution implements Serializable, AutoCloseable {
 //
 //        solution.writeObject("new string");
         Solution solution1 = new Solution("D:\\1.txt");
-        solution1.writeObject("Hi1");
+        solution1.writeObject("qwerty1");
         solution1.close();
         //SAVE
         FileOutputStream fileOutputStream = new FileOutputStream("D:\\2.txt");
@@ -50,8 +50,8 @@ public class Solution implements Serializable, AutoCloseable {
         ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
         Solution solution2 = (Solution) inputStream.readObject();
         inputStream.close();
-        solution2.writeObject("Hi2");
-        solution2.writeObject("Hi3");
+        solution2.writeObject("qwerty1");
+        solution2.writeObject("qwerty2");
         solution2.close();
     }
 
