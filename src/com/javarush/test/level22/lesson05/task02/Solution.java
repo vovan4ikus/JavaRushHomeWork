@@ -6,8 +6,30 @@ package com.javarush.test.level22.lesson05.task02;
 Класс TooShortStringException не менять.
 */
 public class Solution {
-    public static String getPartOfString(String string) {
-        return null;
+    public static String getPartOfString(String string) throws TooShortStringException {
+        if (string == null || string.isEmpty()) throw new TooShortStringException();
+        int firstTabIndex = -1;
+        int secondTabIndex = -1;
+        char[] ch = string.toCharArray();
+        int count = 0;
+        for (int i = 0; i < ch.length; i++) {
+            if (ch[i] == '\t') {
+                count++;
+                if (firstTabIndex == -1) {
+                    firstTabIndex = i+1;
+                }
+                if (firstTabIndex != -1) {
+                    secondTabIndex = i;
+                }
+                if (count == 2) break;
+            }
+
+        }
+        if (count < 2) throw new TooShortStringException();
+        String s = "";
+        s = s + string.substring(firstTabIndex, secondTabIndex);
+
+        return s;
     }
 
     public static class TooShortStringException extends Exception {
