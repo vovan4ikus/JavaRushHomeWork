@@ -10,10 +10,31 @@ package com.javarush.test.level22.lesson05.task01;
 Метод main не участвует в тестировании.
 */
 public class Solution {
+    public static void main(String[] args) {
+        System.out.println(getPartOfString("JavaRush - лучший "));
+    }
     public static String getPartOfString(String string) {
-        return null;
+        if (string == null || string.isEmpty()) throw new TooShortStringException();
+        char[] ch = string.toCharArray();
+//        String[] word = string.split("[,;:.!?\\s]+");
+//        for (String s : word) {
+//            System.out.println(s);
+//        };
+        int firstSpaceIndex = string.indexOf(' ') + 1;
+        int lastSpaceIndex = firstSpaceIndex;
+        int count = 0;
+        for (int i = 0; i < ch.length; i++) {
+            if(ch[i] == ' ') count++;
+            if(count == 4) lastSpaceIndex = i+1;
+
+
+        }
+        String s = string.substring(firstSpaceIndex, lastSpaceIndex);
+        if (count < 4) {
+            throw  new TooShortStringException();}
+        return s;
     }
 
-    public static class TooShortStringException {
+    public static class TooShortStringException extends RuntimeException {
     }
 }
