@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -29,29 +28,27 @@ public class Solution {
         //...
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Scanner scanner = new Scanner(new FileReader(reader.readLine()));
-        String www = "";
+        String line = "";
         while (scanner.hasNextLine()) {
-            www = scanner.nextLine();
+            line = scanner.nextLine();
         }
-        StringBuilder result = getLine(www.split(" "));
+        StringBuilder result = getLine(line.split(" "));
         System.out.println(result.toString());
     }
 
     public static StringBuilder getLine(String... words) {
+        ArrayList<String> list = new ArrayList<>();
+        StringBuilder result = new StringBuilder();
         if (words == null || words.length == 0) {
             return new StringBuilder();
         }
         if ("".equals(words[0]) || words.length == 1) {
             return new StringBuilder(words[0]);
         }
-
-        StringBuilder result = new StringBuilder();
-
-        ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < words.length; i++)
             if (!words[i].equals(""))
                 list.add(words[i]);
-        while (!isOK(list)) {
+        while (!ready(list)) {
             Collections.shuffle(list);
         }
         for (String s : list)
@@ -60,7 +57,7 @@ public class Solution {
         return result;
     }
 
-    public static boolean isOK(ArrayList<String> list) {
+    public static boolean ready(ArrayList<String> list) {
         for (int i = 0; i < list.size() - 1; i++) {
             String first = list.get(i);
             String second = list.get(i + 1);
