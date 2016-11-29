@@ -25,65 +25,51 @@ import java.util.Scanner;
 Амстердам Мельбурн Нью-Йорк Киев Вена
 */
 public class Solution {
-    public static void main(String[] args) throws IOException {
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-//        ArrayList<String> list = new ArrayList<>();
-//        BufferedReader fileReader = new BufferedReader(new FileReader(reader.readLine()));
-//        while (reader.ready())
-//        {
-//            String[] s = reader.readLine().split("\\s");
-//            Collections.addAll(list, s);
-//        }
-//        fileReader.close();
-//        reader.close();
-//        String[] str = new String[list.size()];
-//        str = list.toArray(str);
-//        //...
-//        StringBuilder result = getLine(str);
-//        System.out.println(result.toString());
-        Scanner scanner = new Scanner(System.in);
-        String fileName = scanner.nextLine();
-        ArrayList<String> list = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
-        while (reader.ready()) {
-            String[] s = reader.readLine().split("\\s");
-            Collections.addAll(list, s);
+    public static void main(String[] args) throws IOException
+    {
+        //...
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Scanner scanner = new Scanner(new FileReader(reader.readLine()));
+        String www = "";
+        while (scanner.hasNextLine())
+        {
+            www = scanner.nextLine();
         }
-        reader.close();
-        String[] words = new String[list.size()];
-        words = list.toArray(words);
-        StringBuilder result = getLine(words);
+        StringBuilder result = getLine(www.split(" "));
         System.out.println(result.toString());
-        scanner.close();
     }
-
     public static StringBuilder getLine(String... words) {
-        ArrayList<String> strings = new ArrayList<>();
-        Collections.addAll(strings, words);
-        StringBuilder sb = new StringBuilder();
-        if (strings.size() == 0)
-            return new StringBuilder();
+        if (words == null || words.length == 0)
+        { return new StringBuilder(); }
+        if ("".equals(words[0]) || words.length == 1)
+        {return new StringBuilder(words[0]); }
 
-        sb.append(strings.get(0));
-        strings.remove(0);
+        StringBuilder result = new StringBuilder();
 
-        while (strings.size() > 0) {
-            for (int i = 0; i < strings.size(); i++) {
-                String a = strings.get(i).toUpperCase().toLowerCase();
-                String b = sb.toString().toUpperCase().toLowerCase();
-                if (a.charAt(0) == b.charAt(sb.length() - 1)) { // в конец
-                    sb.append(" ").append(strings.get(i));
-                    strings.remove(i);
-                    continue;
-                }
-
-                if (b.charAt(0) == a.charAt(a.length() - 1)) { //в начало
-                    sb.insert(0, " ");
-                    sb.insert(0, strings.get(i));
-                    strings.remove(i);
-                }
-            }
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < words.length; i ++)
+            if (!words[i].equals(""))
+                list.add(words[i]);
+        while (!isOK(list))
+        {
+            Collections.shuffle(list);
         }
-        return sb;
+        for (String s : list)
+            result.append(s+ " ");
+        result.deleteCharAt(result.length()-1);
+        return result;
+    }
+    public static boolean isOK(ArrayList<String> list)
+    {
+        for (int i = 0; i < list.size()-1; i++)
+        {
+            String first = list.get(i);
+            String second = list.get(i+1);
+            first = first.toLowerCase();
+            second =second.toLowerCase();
+            if (first.charAt(first.length()-1)!=second.charAt(0))
+                return false;
+        }
+        return true;
     }
 }
