@@ -16,6 +16,7 @@ public class Solution {
     }
 
     public static String getFormattedString() {
-        return "20 / 7 = % %Exp = %";
+        String sep = System.getProperty("line.separator");
+        return "20 / 7 = %.2f" + sep + "Exp = %.2e";
     }
 }
