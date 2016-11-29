@@ -12,7 +12,21 @@ import java.util.Map;
 */
 public class Solution {
 
+
     public static StringBuilder getCondition(Map<String, String> params) {
-        return null;
+
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, String> map : params.entrySet()) {
+            if (map.getValue()!=null){
+                if (sb.toString().isEmpty()){
+                    sb.append(map.getKey()).append(" = '").append(map.getValue()).append("'");
+                }
+                else{
+                    sb.append(" and ").append(map.getKey()).append(" = '").append(map.getValue()).append("'");
+
+                }
+            }
+        }
+        return sb;
     }
 }
