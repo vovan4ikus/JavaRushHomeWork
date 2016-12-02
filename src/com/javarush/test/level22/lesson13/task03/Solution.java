@@ -26,6 +26,7 @@ package com.javarush.test.level22.lesson13.task03;
 public class Solution {
 
     public static boolean checkTelNumber(String telNumber) {
-        return false;
+        return ((telNumber.matches("^\\+[\\(\\-]?(\\d[\\(\\)\\-]?){11}\\d$") || telNumber.matches("^\\(?(\\d[\\-\\(\\)]?){9}\\d$"))
+                && telNumber.matches("[\\+]?\\d*(\\(\\d{3}\\))?\\d*\\-?\\d*\\-?\\d*\\d$"));
     }
 }
