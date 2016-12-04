@@ -17,12 +17,13 @@ public class Field {
     }
 
     public int[][] getMatrix() {
-        return new int[height][width];
+        return matrix;
     }
 
     public Field(int width, int height){
         this.height = height;
         this.width = width;
+        matrix = new int[height][width];
     }
 
     public void print(){}
