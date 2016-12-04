@@ -4,6 +4,8 @@ package com.javarush.test.level22.lesson18.big01;
  * Created by User on 04.12.16.
  */
 public class Tetris {
+    public static Tetris game;
+
     private Field field;
     private Figure figure;
 
@@ -19,6 +21,8 @@ public class Tetris {
     public void step(){}
 
     public static void main(String[] args) {
+        game = new Tetris();
+        game.run();
 
     }
 }
