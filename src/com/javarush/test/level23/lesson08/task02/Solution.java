@@ -17,6 +17,11 @@ public class Solution {
         this.food = food;
         this.sound = sound;
     }
+    private void someActions() throws InterruptedException {
+        eat();
+        play();
+        this.sleep(1000);
+    }
 
     public void eat() {
         System.out.println(name + ": Mmmmm, " + food);
@@ -32,18 +37,14 @@ public class Solution {
 
     public void live() throws InterruptedException {
         Thread thread = new Thread() {
+
+
             public void run() {
                 try {
                     someActions();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-
-            private void someActions() throws InterruptedException {
-                eat();
-                play();
-                sleep(1000);
             }
         };
         thread.start();
