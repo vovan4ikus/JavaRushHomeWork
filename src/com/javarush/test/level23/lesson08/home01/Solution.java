@@ -26,6 +26,53 @@ public class Solution {
         print(solution.getLocations());
     }
 
+    public List<User> getUsers() {
+        return new AbstractDbSelectExecutor<User>() {
+
+            public String getQuery() {
+                return "select * from USER";
+            }
+        }.execute();
+    }
+
+
+    public List<Location> getLocations() {
+        return new AbstractDbSelectExecutor<Location>() {
+
+            public String getQuery() {
+                return "select * from LOCATION";
+            }
+        }.execute();
+    }
+
+    public List<Server> getServers() {
+        return new AbstractDbSelectExecutor<Server>() {
+
+            public String getQuery() {
+                return "select * from SERVER";
+            }
+        }.execute();
+    }
+
+    public List<Subject> getSubjects() {
+        return new AbstractDbSelectExecutor<Subject>() {
+
+            public String getQuery() {
+                return "select * from SUBJECT";
+            }
+        }.execute();
+    }
+
+    public List<Subscription> getSubscriptions() {
+        return new AbstractDbSelectExecutor<Subscription>() {
+
+            public String getQuery() {
+                return "select * from SUBSCRIPTION";
+            }
+        }.execute();
+    }
+
+
     public static void print(List list) {
         String format = "Id=%d, name='%s', description=%s";
         for (Object obj : list) {
