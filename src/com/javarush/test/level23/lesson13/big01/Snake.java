@@ -73,7 +73,7 @@ public class Snake
      * Метод перемещает змею в соседнюю клетку.
      * Кординаты клетки заданы относительно текущей головы с помощью переменных (dx, dy).
      */
-    protected void move(int dx, int dy)
+    private void move(int dx, int dy)
     {
         //Создаем новую голову - новый "кусочек змеи".
         SnakeSection head = sections.get(0);
