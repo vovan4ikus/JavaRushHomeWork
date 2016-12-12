@@ -7,63 +7,76 @@ import java.util.ArrayList;
 /**
  * Основной класс программы.
  */
-public class Room {
+public class Room
+{
     private int width;
     private int height;
     private Snake snake;
     private Mouse mouse;
 
-    public Room(int width, int height, Snake snake) {
+    public Room(int width, int height, Snake snake)
+    {
         this.width = width;
         this.height = height;
         this.snake = snake;
     }
 
-    public Snake getSnake() {
+    public Snake getSnake()
+    {
         return snake;
     }
 
-    public Mouse getMouse() {
+    public Mouse getMouse()
+    {
         return mouse;
     }
 
-    public int getWidth() {
+    public int getWidth()
+    {
         return width;
     }
 
-    public int getHeight() {
+    public int getHeight()
+    {
         return height;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(int width)
+    {
         this.width = width;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(int height)
+    {
         this.height = height;
     }
 
-    public void setSnake(Snake snake) {
+    public void setSnake(Snake snake)
+    {
         this.snake = snake;
     }
 
-    public void setMouse(Mouse mouse) {
+    public void setMouse(Mouse mouse)
+    {
         this.mouse = mouse;
     }
 
     /**
-     * Основной цикл программы.
-     * Тут происходят все важные действия
+     *  Основной цикл программы.
+     *  Тут происходят все важные действия
      */
-    public void run() {
+    public void run()
+    {
         //Создаем объект "наблюдатель за клавиатурой" и стартуем его.
         KeyboardObserver keyboardObserver = new KeyboardObserver();
         keyboardObserver.start();
 
         //пока змея жива
-        while (snake.isAlive()) {
+        while (snake.isAlive())
+        {
             //"наблюдатель" содержит события о нажатии клавиш?
-            if (keyboardObserver.hasKeyEvents()) {
+            if (keyboardObserver.hasKeyEvents())
+            {
                 KeyEvent event = keyboardObserver.getEventFromTop();
                 //Если равно символу 'q' - выйти из игры.
                 if (event.getKeyChar() == 'q') return;
@@ -71,13 +84,13 @@ public class Room {
                 //Если "стрелка влево" - сдвинуть фигурку влево
                 if (event.getKeyCode() == KeyEvent.VK_LEFT)
                     snake.setDirection(SnakeDirection.LEFT);
-                    //Если "стрелка вправо" - сдвинуть фигурку вправо
+                //Если "стрелка вправо" - сдвинуть фигурку вправо
                 else if (event.getKeyCode() == KeyEvent.VK_RIGHT)
                     snake.setDirection(SnakeDirection.RIGHT);
-                    //Если "стрелка вверх" - сдвинуть фигурку вверх
+                //Если "стрелка вверх" - сдвинуть фигурку вверх
                 else if (event.getKeyCode() == KeyEvent.VK_UP)
                     snake.setDirection(SnakeDirection.UP);
-                    //Если "стрелка вниз" - сдвинуть фигурку вниз
+                //Если "стрелка вниз" - сдвинуть фигурку вниз
                 else if (event.getKeyCode() == KeyEvent.VK_DOWN)
                     snake.setDirection(SnakeDirection.DOWN);
             }
@@ -94,7 +107,8 @@ public class Room {
     /**
      * Выводим на экран текущее состояние игры
      */
-    public void print() {
+    public void print()
+    {
         //Создаем массив, куда будем "рисовать" текущее состояние игры
         int[][] matrix = new int[height][width];
 
@@ -129,14 +143,16 @@ public class Room {
     /**
      * Метод вызывается, когда мышь съели
      */
-    public void eatMouse() {
+    public void eatMouse()
+    {
         createMouse();
     }
 
     /**
      * Создает новую мышь
      */
-    public void createMouse() {
+    public void createMouse()
+    {
         int x = (int) (Math.random() * width);
         int y = (int) (Math.random() * height);
 
@@ -146,23 +162,30 @@ public class Room {
 
     public static Room game;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         game = new Room(20, 20, new Snake(10, 10));
         game.snake.setDirection(SnakeDirection.DOWN);
         game.createMouse();
         game.run();
     }
 
+    //Массив "пауз" в зависимости от уровня.
+    private static int[] levelDelay = {1000, 600, 550, 500, 480, 460, 440, 420, 400, 380, 360, 340, 320, 300, 285, 270};
 
     /**
      * Прогрмма делает паузу, длинна которой зависит от длинны змеи.
      */
-    public void sleep() {
-        int level = snake.sections.size();
-        int delay = level < 15 ? 500 - level*20 : 200;
-        try{
+    public void sleep()
+    {
+        try
+        {
+            int level = snake.getSections().size();
+            int delay = level < 15 ? levelDelay[level] : 250;
             Thread.sleep(delay);
         }
-        catch (Exception e){}
+        catch (InterruptedException e)
+        {
+        }
     }
 }
