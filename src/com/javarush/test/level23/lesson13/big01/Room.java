@@ -15,6 +15,15 @@ public class Room {
         game.snake.setDirection(SnakeDirection.DOWN);
 
     }
+    public void createMouse(){
+        int a = (int) (Math.random() * width);
+        int b = (int) (Math.random() * height);
+        mouse = new Mouse(a, b);
+    }
+
+    public void eatMouse(){
+        createMouse();
+    }
 
     public void run() {
     }
