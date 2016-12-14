@@ -29,6 +29,21 @@ public class Cat implements Pet {
      * @return экземпляр класса CatPet
      */
     public Sayable toSayable(final int i) {
-        return null;
+
+        class CatPet implements Sayable{
+            @Override
+            public String say() {
+                if (i <= 0)
+                    return name + " спит.";
+                else{
+                    StringBuilder sb = new StringBuilder();
+                    for (int j = 0; j < i; j++) {
+                        sb.append('я');
+                    }
+                    return name + " говорит м" + sb.toString() +"у!";
+                }
+            }
+        }
+        return new CatPet();
     }
 }
