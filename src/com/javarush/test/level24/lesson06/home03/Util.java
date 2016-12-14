@@ -2,13 +2,17 @@ package com.javarush.test.level24.lesson06.home03;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+
+import static com.javarush.test.level24.lesson06.home03.Util.Company.Denim;
+import static com.javarush.test.level24.lesson06.home03.Util.Company.Levis;
 
 public class Util {
     protected static Collection<Object[]> jeansArray = new LinkedList<>();
 
     static {
-        jeansArray.add(new Object[]{1, Company.Levis, 34, 6, 150.0});
-        jeansArray.add(new Object[]{2, Company.Denim, 35, 8, 154.0});
+        jeansArray.add(new Object[]{1, Levis, 34, 6, 150.0});
+        jeansArray.add(new Object[]{2, Denim, 35, 8, 154.0});
         jeansArray.add(new Object[]{3, Company.Colins, 32, 6, 120.0});
         jeansArray.add(new Object[]{4, Company.CalvinKleinJeans, 31, 8, 125.0});
     }
@@ -16,6 +20,75 @@ public class Util {
     public static List<Jeans> getAllJeans() {
 
         //add your code here
+        abstract class AbstractJeans implements Jeans {
+            int length;
+            int size;
+            int id;
+            double price;
+
+            protected AbstractJeans(int id, int length, int size, double price)
+            {
+                this.id = id;
+                this.length = length;
+                this.size = size;
+                this.price = price;
+            }
+            @Override
+            public int getId() {
+                return id;
+            }
+
+            @Override
+            public double getPrice() {
+                return price;
+            }
+
+            @Override
+            public int getLength() {
+                return length;
+            }
+
+            @Override
+            public int getSize() {
+                return size;
+            }
+
+            @Override
+            public String toString() {
+                return this.getClass().getSimpleName() + "{" +
+                        "id=" + id +
+                        ", length=" + length +
+                        ", size=" + size +
+                        ", price=" + price +
+                        '}';
+            }
+        }
+
+        class Levis extends AbstractJeans{
+            String TM;
+
+            Levis(int id, int length, int size, double price)
+            {
+                super(id, length, size, price);
+            }
+            @Override
+            public String getTM() {
+                return TM;
+            }
+        }
+        class Denim extends AbstractJeans{
+            String TM;
+
+            Denim(int id, int length, int size, double price)
+            {
+                super(id, length, size, price);
+            }
+            @Override
+            public String getTM() {
+                return TM;
+            }
+        }
+
 
         List<Jeans> allJeans = new LinkedList<>();
 
@@ -27,10 +100,10 @@ public class Util {
             double price = (double) obj[4];
 
             Jeans jeans = null;
-            if (Company.Levis == company) {
+            if (Levis == company) {
                 jeans = new Levis(id, length, size, price);
             } else
-                if (Company.Denim == company) {
+                if (Denim == company) {
                     jeans = new Denim(id, length, size, price);
                 } else {
                     jeans = new AbstractJeans(id, length, size, price) {
