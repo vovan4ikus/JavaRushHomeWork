@@ -168,6 +168,14 @@ public class Arcanoid
     {
         //Тут проверь - столкнулся ли шарик с кирпичем.
         //Если да - кирпичь удалить, а шарик запустить в случайно направлении.
+        for (Brick currentBrick : bricks) {
+            if (ball.isIntersec(currentBrick)) {
+                double angel = Math.random() * 360;
+                ball.setDirection(angel);
+                bricks.remove(currentBrick);
+                break;
+            }
+        }
     }
 
     /**
@@ -178,6 +186,11 @@ public class Arcanoid
     {
         //Тут проверь - столкнулся ли шарик с подставкой.
         //Если да - запустить шарик  вверх на 80..100 градусов.
+        if (ball.isIntersec(stand)) {
+            double angel = 80 + Math.random()*20;
+            ball.setDirection(angel);
+        }
+
     }
 
     /**
@@ -187,6 +200,8 @@ public class Arcanoid
     public void checkEndGame()
     {
         //Если шарик улетел за нижнюю границы - игра окончена.
+        if (ball.getY() >= height)
+            isGameOver = true;
     }
 
     public int getWidth()
