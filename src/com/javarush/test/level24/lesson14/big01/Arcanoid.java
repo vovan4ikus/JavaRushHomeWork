@@ -186,7 +186,7 @@ public class Arcanoid
     {
         //Тут проверь - столкнулся ли шарик с подставкой.
         //Если да - запустить шарик  вверх на 80..100 градусов.
-        if (ball.isIntersec(stand)) {
+        if (ball.isIntersec( stand)) {
             double angel = 80 + Math.random()*20;
             ball.setDirection(angel);
         }
