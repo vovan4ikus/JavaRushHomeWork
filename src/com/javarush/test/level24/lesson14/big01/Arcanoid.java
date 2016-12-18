@@ -6,11 +6,14 @@ import java.util.ArrayList;
  * Created by User on 18.12.16.
  */
 public class Arcanoid {
+    public static Arcanoid game;
     int width;
     int height;
     Ball ball;
     Stand stand;
     ArrayList<Brick> bricks;
+    public void run(){}
+    public void move(){}
 
     public Ball getBall() {
         return ball;
