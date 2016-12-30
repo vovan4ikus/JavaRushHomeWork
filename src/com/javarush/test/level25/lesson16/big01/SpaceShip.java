@@ -17,7 +17,9 @@ public class SpaceShip extends BaseObject {
 
     @Override
     public void move() {
-        super.move();
+        x = x + dx;
+
+        checkBorders(radius, Space.game.getWidth() - radius + 1, 1, Space.game.getHeight() + 1);
     }
 
     public void moveLeft(){
@@ -26,5 +28,9 @@ public class SpaceShip extends BaseObject {
 
     public void moveRight(){
         this.dx = 1;
+    }
+    public void fire(){
+        Space.game.getRockets().add(new Rocket(x - 2, y));
+        Space.game.getRockets().add(new Rocket(x + 2, y));
     }
 }
