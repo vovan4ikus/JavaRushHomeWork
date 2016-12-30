@@ -12,6 +12,7 @@ public class Space {
     ArrayList<Ufo> ufos = new ArrayList<>();
     ArrayList<Rocket> rockets = new ArrayList<>();
     ArrayList<Bomb> bombs = new ArrayList<>();
+    public static Space game;
 
     public Space(int width, int height) {
         this.width = width;
