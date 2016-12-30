@@ -44,4 +44,14 @@ public class BaseObject {
 
         return isAlive;
     }
+    public void draw(){}
+    public void move(){}
+    public void die(){
+        isAlive = false;
+    }
+    public boolean isIntersec(BaseObject o){
+        double dist = Math.abs(o.x*o.x + o.y*o.y -(this.x*this.x + this.y*this.y));
+        double max = Math.max(o.radius, this.radius);
+        return dist < max;
+    }
 }

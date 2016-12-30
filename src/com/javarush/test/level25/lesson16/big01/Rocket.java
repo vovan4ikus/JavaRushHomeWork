@@ -8,4 +8,13 @@ public class Rocket extends BaseObject {
         super(x, y, radius);
     }
 
+    @Override
+    public void draw() {
+        super.draw();
+    }
+
+    @Override
+    public void move() {
+        super.move();
+    }
 }
