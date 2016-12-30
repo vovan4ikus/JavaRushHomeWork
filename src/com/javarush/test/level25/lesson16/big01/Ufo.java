@@ -1,9 +1,10 @@
 package com.javarush.test.level25.lesson16.big01;
 
 /**
- * Created by User on 30.12.16.
+ * Класс для НЛО
  */
-public class Ufo extends BaseObject {
+public class Ufo extends BaseObject
+{
     //картинка для отрисовки
     private static int[][] matrix = {
             {0, 0, 0, 0, 0},
@@ -33,8 +34,8 @@ public class Ufo extends BaseObject {
     @Override
     public void move()
     {
-        double dx = Math.random() * 2 - 1;
-        double dy = Math.random() * 2 - 1;
+        double dx = Math.random() * 2-1;
+        double dy = Math.random() * 2-1;
 
         x += dx;
         y += dy;
