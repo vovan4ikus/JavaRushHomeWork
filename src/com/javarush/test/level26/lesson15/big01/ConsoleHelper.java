@@ -63,5 +63,17 @@ public class ConsoleHelper {
         }
         return array;
     }
+    public static Operation askOperation() throws InterruptOperationException
+    {
+        while (true)
+        {
+            int line = Integer.parseInt(readString());
+            if (line <= 4 && line >= 1)
+                return Operation.getAllowableOperationByOrdinal(line);
+            else
+                writeMessage("invalid.data");
+        }
+
+    }
 
 }
