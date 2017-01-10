@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ResourceBundle;
 
+import static com.javarush.test.level26.lesson15.big01.CashMachine.RESOURCE_PATH;
+
 /**
  * Created by User on 08.01.17.
  */
 public class ConsoleHelper {
-    private static ResourceBundle res = ResourceBundle.getBundle("com.javarush.test.level26.lesson15.big01." +
+    private static ResourceBundle res = ResourceBundle.getBundle(RESOURCE_PATH +
             "resources.common_en");
     public static void writeMessage(String message) {
         System.out.println(message);
@@ -79,6 +81,10 @@ public class ConsoleHelper {
                 writeMessage(res.getString("invalid.data"));
         }
 
+    }
+    public static void printExitMessage()
+    {
+        ConsoleHelper.writeMessage(res.getString("the.end"));
     }
 
 }

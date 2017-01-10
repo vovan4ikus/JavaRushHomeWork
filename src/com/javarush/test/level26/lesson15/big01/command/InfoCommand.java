@@ -7,11 +7,13 @@ import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationExce
 
 import java.util.ResourceBundle;
 
+import static com.javarush.test.level26.lesson15.big01.CashMachine.RESOURCE_PATH;
+
 /**
  * Created by User on 10.01.17.
  */
 class InfoCommand implements Command {
-    private ResourceBundle res = ResourceBundle.getBundle("com.javarush.test.level26.lesson15.big01." +
+    private ResourceBundle res = ResourceBundle.getBundle(RESOURCE_PATH +
             "resources.info_en");
     @Override
     public void execute() throws InterruptOperationException
