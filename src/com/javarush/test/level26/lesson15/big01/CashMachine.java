@@ -13,6 +13,7 @@ public class CashMachine {
         Locale.setDefault(Locale.ENGLISH);
         try {
             Operation operation;
+            CommandExecutor.execute(Operation.LOGIN); // добавлена строка
             do {
                 operation = ConsoleHelper.askOperation();
                 CommandExecutor.execute(operation);
