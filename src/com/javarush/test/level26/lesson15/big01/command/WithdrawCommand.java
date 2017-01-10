@@ -13,6 +13,8 @@ import java.util.ResourceBundle;
  * Created by User on 10.01.17.
  */
 class WithdrawCommand implements Command {
+    private ResourceBundle res = ResourceBundle.getBundle("com.javarush.test.level26.lesson15.big01." +
+            "resources.withdraw_en");
     @Override
     public void execute() throws InterruptOperationException {
         ConsoleHelper.writeMessage("Enter currency code");
