@@ -22,7 +22,7 @@ public class CommandExecutor {
         map.put(Operation.EXIT, new ExitCommand());
     }
 
-    public static final void execute(Operation operation){
+    public static final void execute(Operation operation) throws InterruptOperationException{
         map.get(operation).execute();
     }
     private CommandExecutor(){}
