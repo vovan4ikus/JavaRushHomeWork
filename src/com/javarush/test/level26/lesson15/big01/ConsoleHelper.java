@@ -15,11 +15,13 @@ public class ConsoleHelper {
     }
     public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public static String readString() {
+    public static String readString() throws InterruptOperationException {
         String s = null;
         try {
             s = reader.readLine();
-        } catch (Exception e) {
+            if (s.equalsIgnoreCase("EXIT"))
+                throw new InterruptOperationException();
+        } catch (IOException ignored) {
         }
         return s;
     }

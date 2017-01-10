@@ -11,13 +11,17 @@ import java.util.Locale;
 public class CashMachine {
     public static void main(String[] args) throws InterruptOperationException {
         Locale.setDefault(Locale.ENGLISH);
-        Operation operation;
-        do
-        {
-            operation = ConsoleHelper.askOperation();
-            CommandExecutor.execute(operation);
+        try {
+            Operation operation;
+            do {
+                operation = ConsoleHelper.askOperation();
+                CommandExecutor.execute(operation);
+            }
+            while (!operation.equals(Operation.EXIT));
         }
-        while (!operation.equals(Operation.EXIT));
+        catch(InterruptOperationException e){
+            ConsoleHelper.writeMessage("Bye!");
+        }
 
     }
 }
