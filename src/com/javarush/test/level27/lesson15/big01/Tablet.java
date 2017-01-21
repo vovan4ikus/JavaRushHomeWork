@@ -1,5 +1,6 @@
 package com.javarush.test.level27.lesson15.big01;
 
+
 import com.javarush.test.level27.lesson15.big01.ad.AdvertisementManager;
 import com.javarush.test.level27.lesson15.big01.ad.NoVideoAvailableException;
 import com.javarush.test.level27.lesson15.big01.kitchen.Order;
@@ -9,12 +10,9 @@ import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by NadyaVova on 16.01.2017.
- */
 public class Tablet extends Observable {
-    final static java.util.logging.Logger logger = Logger.getLogger(Tablet.class.getName());
-    final int number;
+    final static Logger logger = Logger.getLogger(Tablet.class.getName());
+    private final int number;
 
     public Tablet(int number) {
         this.number = number;
@@ -38,8 +36,13 @@ public class Tablet extends Observable {
             logger.log(Level.INFO, "No video is available for the order " + order);
         }
     }
+
+    public int getNumber() {
+        return number;
+    }
+
     @Override
     public String toString() {
-        return "Tablet{" + "number=" + number + '}';
+        return "Tablet{number=" + number + "}";
     }
 }

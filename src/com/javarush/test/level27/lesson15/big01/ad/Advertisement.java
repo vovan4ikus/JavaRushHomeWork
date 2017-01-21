@@ -1,8 +1,6 @@
 package com.javarush.test.level27.lesson15.big01.ad;
 
-/**
- * Created by User on 021 21.01.17.
- */
+
 public class Advertisement {
     private Object content;
     private String name;
@@ -28,11 +26,15 @@ public class Advertisement {
         return duration;
     }
 
+    public int getHits() {
+        return hits;
+    }
+
     public long getAmountPerOneDisplaying() {
         return amountPerOneDisplaying;
     }
 
-    public void revalidate(){
+    public void revalidate() {
         if (hits <= 0)
             throw new UnsupportedOperationException();
         hits--;
