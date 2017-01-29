@@ -35,7 +35,6 @@ public class Tablet extends Observable {
         catch (IOException e) {
             logger.log(Level.SEVERE, "Console is unavailable.");
         } catch (NoVideoAvailableException e) {
-            // регистрируем событие - нет видео
             logger.log(Level.INFO, "No video is available for the order " + order);
         }
     }

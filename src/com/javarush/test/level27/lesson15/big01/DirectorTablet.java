@@ -15,24 +15,22 @@ public class DirectorTablet {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
 
     public void printAdvertisementProfit(){
-        Map<Date, Double> profitMap = StatisticManager.getInstance().getAdRevenue();
-        double total = 0;
-        for (Map.Entry<Date, Double> pair : profitMap.entrySet()) {
-            System.out.println(dateFormat.format(pair.getKey()) + " - " + pair.getValue());
-            total += pair.getValue();
+        double total=0;
+        for(Map.Entry<Date,Long> dayPr: StatisticManager.getInstance().dailyAdProfit().entrySet()) {
+            double am = dayPr.getValue()/100.0;
+            ConsoleHelper.writeMessage(String.format("%s - %.2f", dateFormat.format(dayPr.getKey()), am));
+            total+=am;
         }
-        System.out.println("Total - " + total);
-        System.out.println();
+        ConsoleHelper.writeMessage(String.format("Total - %.2f", total));
     }
 
     public void printCookWorkloading(){
-        Map<Date, Map<String, Integer>> cookMap = StatisticManager.getInstance().getCookWorkload();
-        for (Map.Entry<Date, Map<String, Integer>> pair : cookMap.entrySet()) {
-            System.out.println(dateFormat.format(pair.getKey()));
-            for (Map.Entry<String, Integer> cooker : pair.getValue().entrySet()) {
-                System.out.println(cooker.getKey() + " - " + cooker.getValue() + " min");
+        for(Map.Entry<Date, TreeMap<String,Integer>> cookMap : StatisticManager.getInstance().cookWork().entrySet()) {
+            ConsoleHelper.writeMessage("");
+            ConsoleHelper.writeMessage(dateFormat.format(cookMap.getKey()));
+            for(Map.Entry<String,Integer> dailycok: cookMap.getValue().entrySet()){
+                ConsoleHelper.writeMessage(String.format("%s - %d min", dailycok.getKey(),dailycok.getValue()));
             }
-            System.out.println();
         }
     }
 
