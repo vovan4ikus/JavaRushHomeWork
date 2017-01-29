@@ -2,6 +2,9 @@ package com.javarush.test.level27.lesson15.big01.ad;
 
 
 import com.javarush.test.level27.lesson15.big01.ConsoleHelper;
+import com.javarush.test.level27.lesson15.big01.statistic.StatisticManager;
+import com.javarush.test.level27.lesson15.big01.statistic.event.NoAvailableVideoEventDataRow;
+import com.javarush.test.level27.lesson15.big01.statistic.event.VideoSelectedEventDataRow;
 
 import java.util.*;
 
@@ -84,8 +87,10 @@ public class AdvertisementManager {
             }
         });
 
-        if(powerSet.isEmpty())
+        if(powerSet.isEmpty()){
+//            StatisticManager.getInstance().register(new NoAvailableVideoEventDataRow(timeSeconds));
             throw new NoVideoAvailableException();
+        }
 
         List<Advertisement> list = powerSet.get(0);  //берем первый элемент - оптимальный список
 
@@ -105,6 +110,20 @@ public class AdvertisementManager {
         {
             ad.revalidate();
         }
+        long amount = 0;
+        int duration = 0;
+        for (Advertisement ad : list) {
+            amount += ad.getAmountPerOneDisplaying();
+            duration += ad.getDuration();
+        }
+        if (list.size() == 0)
+        {
+            StatisticManager.getInstance().register(new NoAvailableVideoEventDataRow(timeSeconds));
+            throw new NoVideoAvailableException();
+        }
+        StatisticManager.getInstance().register(new VideoSelectedEventDataRow(list,amount, duration));
+
+
 
         for(Advertisement ad : list) //выводим элементы списка
         {

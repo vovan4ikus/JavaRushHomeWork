@@ -4,6 +4,8 @@ package com.javarush.test.level27.lesson15.big01;
 import com.javarush.test.level27.lesson15.big01.ad.AdvertisementManager;
 import com.javarush.test.level27.lesson15.big01.ad.NoVideoAvailableException;
 import com.javarush.test.level27.lesson15.big01.kitchen.Order;
+import com.javarush.test.level27.lesson15.big01.statistic.StatisticManager;
+import com.javarush.test.level27.lesson15.big01.statistic.event.NoAvailableVideoEventDataRow;
 
 import java.io.IOException;
 import java.util.Observable;
@@ -33,6 +35,7 @@ public class Tablet extends Observable {
         catch (IOException e) {
             logger.log(Level.SEVERE, "Console is unavailable.");
         } catch (NoVideoAvailableException e) {
+            // регистрируем событие - нет видео
             logger.log(Level.INFO, "No video is available for the order " + order);
         }
     }
