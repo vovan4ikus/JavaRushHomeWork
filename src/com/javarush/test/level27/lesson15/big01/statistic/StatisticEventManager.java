@@ -13,12 +13,12 @@ import java.util.*;
 /**
  * Created by User on 021 21.01.17.
  */
-public class StatisticManager {
-    private static StatisticManager ourInstance = new StatisticManager();
-    public static StatisticManager getInstance() {
+public class StatisticEventManager {
+    private static StatisticEventManager ourInstance = new StatisticEventManager();
+    public static StatisticEventManager getInstance() {
         return ourInstance;
     }
-    private StatisticManager() {}
+    private StatisticEventManager() {}
     private static Set<Cook> cooks = new HashSet<>();
 
     public TreeMap<Date,Long> dailyAdProfit() {

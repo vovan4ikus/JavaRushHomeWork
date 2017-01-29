@@ -1,8 +1,7 @@
 package com.javarush.test.level27.lesson15.big01.ad;
 
 
-import com.javarush.test.level27.lesson15.big01.ConsoleHelper;
-import com.javarush.test.level27.lesson15.big01.statistic.StatisticManager;
+import com.javarush.test.level27.lesson15.big01.statistic.StatisticEventManager;
 import com.javarush.test.level27.lesson15.big01.statistic.event.NoAvailableVideoEventDataRow;
 import com.javarush.test.level27.lesson15.big01.statistic.event.VideoSelectedEventDataRow;
 
@@ -88,7 +87,7 @@ public class AdvertisementManager {
         });
 
         if(powerSet.isEmpty()){
-//            StatisticManager.getInstance().register(new NoAvailableVideoEventDataRow(timeSeconds));
+//            StatisticEventManager.getInstance().register(new NoAvailableVideoEventDataRow(timeSeconds));
             throw new NoVideoAvailableException();
         }
 
@@ -118,10 +117,10 @@ public class AdvertisementManager {
         }
         if (list.size() == 0)
         {
-            StatisticManager.getInstance().register(new NoAvailableVideoEventDataRow(timeSeconds));
+            StatisticEventManager.getInstance().register(new NoAvailableVideoEventDataRow(timeSeconds));
             throw new NoVideoAvailableException();
         }
-        StatisticManager.getInstance().register(new VideoSelectedEventDataRow(list,amount, duration));
+        StatisticEventManager.getInstance().register(new VideoSelectedEventDataRow(list,amount, duration));
 
 
 

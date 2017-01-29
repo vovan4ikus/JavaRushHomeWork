@@ -2,7 +2,7 @@ package com.javarush.test.level27.lesson15.big01;
 
 import com.javarush.test.level27.lesson15.big01.kitchen.Cook;
 import com.javarush.test.level27.lesson15.big01.kitchen.Waitor;
-import com.javarush.test.level27.lesson15.big01.statistic.StatisticManager;
+import com.javarush.test.level27.lesson15.big01.statistic.StatisticEventManager;
 
 import java.util.Locale;
 
@@ -14,7 +14,7 @@ public class Restaurant {
         Locale.setDefault(Locale.ENGLISH);
         Tablet tablet = new Tablet(5);
         Cook cook = new Cook("Amigo");
-        StatisticManager.getInstance().register(cook);
+        StatisticEventManager.getInstance().register(cook);
         tablet.addObserver(cook);
         Waitor waitor = new Waitor();
         cook.addObserver(waitor);
