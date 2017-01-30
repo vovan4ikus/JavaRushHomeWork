@@ -12,13 +12,14 @@ import java.util.Observable;
  * Created by NadyaVova on 16.01.2017.
  */
 public class Order {
-    private List<Dish> dishes;
+    protected List<Dish> dishes;
     private Tablet tablet;
 
 
     public Order(Tablet tablet) throws IOException {
         this.dishes = ConsoleHelper.getAllDishesForOrder();
         this.tablet = tablet;
+        initDishes();
     }
 
     @Override
@@ -47,5 +48,9 @@ public class Order {
 
     public Tablet getTablet() {
         return tablet;
+    }
+
+    protected void initDishes() throws IOException {
+        dishes = ConsoleHelper.getAllDishesForOrder();
     }
 }
