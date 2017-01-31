@@ -7,61 +7,76 @@ import com.javarush.test.level27.lesson15.big01.kitchen.Order;
 import com.javarush.test.level27.lesson15.big01.kitchen.TestOrder;
 
 import java.io.IOException;
-import java.util.Observable;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Tablet extends Observable{
+public class Tablet
+{
+    public static Logger logger = Logger.getLogger(Tablet.class.getName());
+
     private final int number;
-    private Logger logger =  Logger.getLogger(Tablet.class.getName());
+
+    public int getNumber() {
+        return number;
+    }
+
+    private LinkedBlockingQueue<Order> queue;
+
+    public void setQueue(LinkedBlockingQueue<Order> queue)
+    {
+        this.queue = queue;
+    }
+
     public Tablet(int number)
     {
         this.number = number;
     }
+
     public void createOrder()
     {
-        Order order = null;
         try
         {
-            order = new Order(this);
-            initOrder(order);
+            Order order = new Order(this);
+            printOrderAndShowAds(order);
         }
-        catch (IOException e) {
+        catch (IOException e)
+        {
             logger.log(Level.SEVERE, "Console is unavailable.");
         }
     }
+
     public void createTestOrder()
     {
-        Order order = null;
         try
         {
-            order = new TestOrder(this);
-            initOrder(order);
+            TestOrder order = new TestOrder(this);
+            printOrderAndShowAds(order);
         }
-        catch (IOException e) {
+        catch (IOException e)
+        {
             logger.log(Level.SEVERE, "Console is unavailable.");
         }
     }
-    private void initOrder(Order order)
+
+    public void printOrderAndShowAds(Order order)
     {
-        if (!order.isEmpty()) {
-            ConsoleHelper.writeMessage(order.toString());
-            setChanged();
-            notifyObservers(order);
-        }
+        ConsoleHelper.writeMessage(order.toString());
+        AdvertisementManager advertisementManager = new AdvertisementManager(order.getTotalCookingTime() * 60);
         try
         {
-            new AdvertisementManager(order.getTotalCookingTime() * 60).processVideos();
-        }catch (NoVideoAvailableException e) {
+            advertisementManager.processVideos();
+        }
+        catch (NoVideoAvailableException e)
+        {
             logger.log(Level.INFO, "No video is available for the order " + order);
         }
+        queue.add(order);
     }
-    public int getNumber()
-    {
-        return number;
-    }
+
     @Override
-    public String toString() {
-        return "Tablet{number=" + number + "}";
+    public String toString()
+    {
+        return "of Tablet{number=" + number + "}";
     }
 }

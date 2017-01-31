@@ -1,41 +1,47 @@
 package com.javarush.test.level27.lesson15.big01.ad;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by User on 29.01.17.
  */
-public class StatisticAdvertisementManager {
-    private static StatisticAdvertisementManager ourInstance = new StatisticAdvertisementManager();
+public class StatisticAdvertisementManager
+{
+    private static StatisticAdvertisementManager instance = new StatisticAdvertisementManager();
 
-    public static StatisticAdvertisementManager getInstance() {
-        return ourInstance;
+    private final AdvertisementStorage advertisementStorage = AdvertisementStorage.getInstance();
+
+    public static StatisticAdvertisementManager getInstance()
+    {
+        return instance;
     }
 
-    private StatisticAdvertisementManager() {
+    private StatisticAdvertisementManager()
+    {
     }
 
-    AdvertisementStorage advertisementStorage = AdvertisementStorage.getInstance();
-
-    public Map<String, Advertisement> getActiveVideos() {
-        Map<String, Advertisement> activeVideos = new TreeMap<>();
-        for (Advertisement advertisement : AdvertisementStorage.getInstance().list()) {
-            if (advertisement.getHits() > 0) {
-                activeVideos.put(advertisement.getName().toLowerCase(), advertisement);
+    public List<Advertisement> getVideoSet(boolean isActive)
+    {
+        List<Advertisement> videoSet = new ArrayList<>();
+        for (Advertisement ad : advertisementStorage.list())
+        {
+            if (!isActive && ad.getHits() == 0)
+            {
+                videoSet.add(ad);
+            }
+            if (isActive && ad.getHits() != 0)
+            {
+                videoSet.add(ad);
             }
         }
-        return activeVideos;
-    }
-
-    public Map<String, Advertisement> getArchivedVideos() {
-        Map<String, Advertisement> archivedVideos = new TreeMap<>();
-        for (Advertisement advertisement : AdvertisementStorage.getInstance().list()) {
-            if (advertisement.getHits() == 0) {
-                archivedVideos.put(advertisement.getName().toLowerCase(), advertisement);
+        Collections.sort(videoSet, new Comparator<Advertisement>()
+        {
+            @Override
+            public int compare(Advertisement o1, Advertisement o2)
+            {
+                return o1.getName().compareToIgnoreCase(o2.getName());
             }
-        }
-        return archivedVideos;
+        });
+        return videoSet;
     }
-
 }
