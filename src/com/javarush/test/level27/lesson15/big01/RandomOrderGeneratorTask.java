@@ -6,24 +6,29 @@ import java.util.List;
 /**
  * Created by User on 29.01.17.
  */
-public class RandomOrderGeneratorTask implements Runnable {
-    private List<Tablet> tablets = new ArrayList<>();
+public class RandomOrderGeneratorTask implements Runnable{
+    private List<Tablet> tablets;
     private int interval;
-
-    public RandomOrderGeneratorTask(List<Tablet> tablets, int interval) {
+    public RandomOrderGeneratorTask(List<Tablet> tablets, int ORDER_CREATING_INTERVAL)
+    {
         this.tablets = tablets;
-        this.interval = interval;
+        this.interval = ORDER_CREATING_INTERVAL;
     }
-
     @Override
-    public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
-            Tablet tablet = tablets.get((int) (Math.random() * tablets.size()));
-            tablet.createTestOrder();
-            try {
+    public void run()
+    {
+        while (true)
+        {
+            try
+            {
+                int random = (int)(Math.random() * tablets.size());
+                Tablet tablet = tablets.get(random);
+                tablet.createTestOrder();
                 Thread.sleep(interval);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+            }
+            catch (InterruptedException e)
+            {
+                break;
             }
         }
     }
