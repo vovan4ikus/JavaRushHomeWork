@@ -14,35 +14,27 @@ import java.util.Locale;
 public class Restaurant {
     private static final int ORDER_CREATING_INTERVAL = 100;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Locale.setDefault(Locale.ENGLISH);
-        List<Tablet> tablets = new ArrayList<>();
         Cook cook1 = new Cook("Amigo");
-        Cook cook2 = new Cook("Bob");
+        Cook cook2 = new Cook("Ogima");
         StatisticEventManager.getInstance().register(cook1);
         StatisticEventManager.getInstance().register(cook2);
         Waitor waitor = new Waitor();
         cook1.addObserver(waitor);
         cook2.addObserver(waitor);
-        for(int i = 0; i < 5; i++)
-        {
-            tablets.add(new Tablet(i+1));
+        OrderManager orderManager = new OrderManager();
+        List<Tablet> tablets = new ArrayList<>(5);
+        for (int i = 0; i < 5; i++) {
+            tablets.add(new Tablet(i));
+            tablets.get(i).addObserver(orderManager);
         }
-        for (int i=0; i < tablets.size(); i++)
-        {
-            if(i%2 == 0) tablets.get(i).addObserver(cook1);
-            else tablets.get(i).addObserver(cook2);
-        }
-        RandomOrderGeneratorTask generator = new RandomOrderGeneratorTask(tablets, ORDER_CREATING_INTERVAL);
-        Thread thread = new Thread(generator);
+        RandomOrderGeneratorTask generatorTask = new RandomOrderGeneratorTask(tablets, ORDER_CREATING_INTERVAL);
+        Thread thread = new Thread(generatorTask);
         thread.start();
-        try
-        {
-            Thread.sleep(3000);
-        }
-        catch(InterruptedException e)
-        {}
+        Thread.sleep(1000);
         thread.interrupt();
+        thread.join();
         DirectorTablet directorTablet = new DirectorTablet();
         directorTablet.printAdvertisementProfit();
         directorTablet.printCookWorkloading();
