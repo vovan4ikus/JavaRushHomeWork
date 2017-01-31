@@ -21,6 +21,10 @@ public class StatisticEventManager {
     private StatisticEventManager() {}
     private static Set<Cook> cooks = new HashSet<>();
 
+    public static Set<Cook> getCooks() {
+        return cooks;
+    }
+
     public TreeMap<Date,Long> dailyAdProfit() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         TreeMap<Date,Long> dp = new TreeMap<>(Collections.reverseOrder());

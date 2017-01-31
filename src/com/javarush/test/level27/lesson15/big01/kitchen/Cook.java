@@ -15,6 +15,11 @@ public class Cook extends Observable {
     public Cook(String name){
         this.name = name;
     }
+    private boolean busy;
+
+    public boolean isBusy() {
+        return busy;
+    }
 
     @Override
     public String toString() {
@@ -23,11 +28,30 @@ public class Cook extends Observable {
 
 
     public void startCookingOrder(Order order) {
-        ConsoleHelper.writeMessage(String.format("Start cooking - %s, cooking time %dmin", order, order.getTotalCookingTime()));
-        StatisticEventManager.getInstance()
-                .register(new CookedOrderEventDataRow(order.getTablet().toString(), name,
-                        order.getTotalCookingTime() * 60, order.getDishes()));
+        busy = true;
+
+        ConsoleHelper.writeMessage("Start cooking - " + order +
+                ", cooking time " + order.getTotalCookingTime() + "min");
+
+        CookedOrderEventDataRow eventDataRow = new CookedOrderEventDataRow(
+                order.getTablet().toString(),
+                name,
+                order.getTotalCookingTime() * 60,
+                order.getDishes());
+        StatisticEventManager.getInstance().register(eventDataRow);
+
+        try
+        {
+            Thread.sleep(10 * order.getTotalCookingTime());
+        }
+        catch (InterruptedException e)
+        {
+            Thread.currentThread().interrupt();
+        }
+
         setChanged();
         notifyObservers(order);
+
+        busy = false;
     }
 }
