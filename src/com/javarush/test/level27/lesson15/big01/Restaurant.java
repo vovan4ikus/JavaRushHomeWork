@@ -19,10 +19,12 @@ public class Restaurant {
         List<Tablet> tablets = new ArrayList<>();
         Cook cook1 = new Cook("Amigo");
         Cook cook2 = new Cook("Bob");
+        StatisticEventManager.getInstance().register(cook1);
+        StatisticEventManager.getInstance().register(cook2);
         Waitor waitor = new Waitor();
         cook1.addObserver(waitor);
         cook2.addObserver(waitor);
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 5; i++)
         {
             tablets.add(new Tablet(i+1));
         }

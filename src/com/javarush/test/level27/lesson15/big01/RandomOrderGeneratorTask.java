@@ -9,10 +9,10 @@ import java.util.List;
 public class RandomOrderGeneratorTask implements Runnable{
     private List<Tablet> tablets;
     private int interval;
-    public RandomOrderGeneratorTask(List<Tablet> tablets, int ORDER_CREATING_INTERVAL)
+    public RandomOrderGeneratorTask(List<Tablet> tablets, int interval)
     {
         this.tablets = tablets;
-        this.interval = ORDER_CREATING_INTERVAL;
+        this.interval = interval;
     }
     @Override
     public void run()
